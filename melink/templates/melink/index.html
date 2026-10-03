@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}MeLink{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'melink/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <a class="brand" href="/" aria-label="MeLink — на головну">
+            <img
+                class="brand-logo"
+                src="{% static 'melink/images/melink-logo.svg' %}"
+                alt="MeLink"
+            >
+        </a>
+
+        <nav aria-label="Головна навігація">
+            <a href="#about">Як це працює</a>
+            <a href="#example">Приклад</a>
+            <a class="button" href="#create">Створити профіль</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+
+        <section class="hero">
+            <div class="hero-text">
+                <p class="eyebrow">Твій маленький сайт</p>
+                <h1>Твої посилання.<br>Твоя історія.</h1>
+                <p>Розкажи про себе й поділися посиланнями на соцмережі.</p>
+                <a class="button" href="#create">Створити профіль</a>
+                <p>Твій профіль. Твій стиль. Одне посилання.</p>
+            </div>
+
+            <div class="profile-preview" id="example">
+                <div class="profile-card">
+                    <div class="profile-avatar" aria-label="Аватар Марії">МС</div>
+
+                    <h2>Марія Савчук</h2>
+                    <p class="profile-job">Дизайнерка · Київ</p>
+
+                    <p class="profile-description">
+                        Створюю красиві речі.<br>
+                        Тут мої роботи й трохи життя.
+                    </p>
+
+                    <div class="social-links">
+                        <a href="https://instagram.com/">
+                            Instagram <span aria-hidden="true">↗</span>
+                        </a>
+                        <a href="https://telegram.org/">
+                            Telegram <span aria-hidden="true">↗</span>
+                        </a>
+                        <a href="#">
+                            Моє портфоліо <span aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="profile-url">
+                    <span aria-hidden="true">🔗</span>
+                    <span>melink / maria</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="steps" id="about">
+            <h2>Почни з трьох простих кроків</h2>
+            <p>Від першого слова про себе до сторінки, якою хочеться поділитися.</p>
+
+            <div class="steps-grid">
+                <article class="step-card">
+                    <div class="step-card-heading">
+                        <span class="step-icon" aria-hidden="true">
+                            <img
+                                class="step-icon-image"
+                                src="{% static 'melink/images/icon-profile.svg' %}"
+                                alt=""
+                            >
+                        </span>
+                        <span class="step-number">01</span>
+                    </div>
+
+                    <h3>Розкажи про себе</h3>
+                    <p>Додай фото, ім’я та кілька слів про те, чим ти займаєшся.</p>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-card-heading">
+                        <span class="step-icon" aria-hidden="true">
+                            <img
+                                class="step-icon-image"
+                                src="{% static 'melink/images/icon-link.svg' %}"
+                                alt=""
+                            >
+                        </span>
+                        <span class="step-number">02</span>
+                    </div>
+
+                    <h3>Збери свої посилання</h3>
+                    <p>Соцмережі, портфоліо чи блог — усе важливе буде поруч.</p>
+                </article>
+
+                <article class="step-card">
+                    <div class="step-card-heading">
+                        <span class="step-icon" aria-hidden="true">
+                            <img
+                                class="step-icon-image"
+                                src="{% static 'melink/images/icon-share.svg' %}"
+                                alt=""
+                            >
+                        </span>
+                        <span class="step-number">03</span>
+                    </div>
+
+                    <h3>Поділися сторінкою</h3>
+                    <p>Додай посилання у свій Instagram або надішли його друзям.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="cta" id="create">
+            <img
+                src="{% static 'melink/images/01-icon.svg' %}"
+                alt=""
+                aria-hidden="true"
+            >
+
+            <div>
+                <h2>Збери своє в одному місці.</h2>
+                <p>Почни зі своєї сторінки MeLink.</p>
+            </div>
+
+            <a class="button" href="#create">Створити профіль</a>
+        </section>
+
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <a class="brand" href="/" aria-label="MeLink — на головну">
+            <img
+                class="logo-for-end"
+                src="{% static 'melink/images/melink-logo.svg' %}"
+                alt=""
+            >
+            <span>MeLink</span>
+        </a>
+
+        <p>© MeLink · Усе твоє — в одному лінку</p>
+    </footer>
+</body>
+</html>
