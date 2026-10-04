@@ -1,0 +1,352 @@
+/* Індикатор трьох кроків */
+.steps-indicator {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.steps-indicator-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--color-muted);
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.steps-indicator-item.active {
+    color: var(--color-text);
+    font-weight: 700;
+}
+
+.steps-indicator-number {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--color-border);
+    color: var(--color-muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.steps-indicator-item.active .steps-indicator-number {
+    background: var(--color-purple);
+    color: white;
+}
+
+.steps-indicator-line {
+    width: 28px;
+    height: 1px;
+    background: var(--color-border);
+}
+
+/* Заголовок сторінки */
+.create-profile {
+    margin-top: 60px;
+}
+
+.create-profile h1 {
+    font-size: 40px;
+    line-height: 1.2;
+}
+
+.create-profile > p {
+    margin-top: 12px;
+    color: var(--color-muted);
+    font-size: 16px;
+}
+
+/* Форма ліворуч, попередній перегляд праворуч */
+.create-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 576px) minmax(0, 488px);
+    justify-content: space-between;
+    align-items: start;
+    gap: 48px;
+    margin-top: 28px;
+}
+
+.profile-form {
+    min-width: 0;
+}
+
+/* Фото та кнопка завантаження */
+.photo-field {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 12px 0 34px;
+}
+
+.photo-field .profile-avatar {
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    margin: 0;
+    border: 0;
+    background: var(--color-text);
+    color: white;
+    font-size: 24px;
+}
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 10px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: white;
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.upload-button:hover {
+    border-color: var(--color-purple);
+}
+
+.upload-button:focus-within {
+    outline: 2px solid var(--color-purple);
+    outline-offset: 3px;
+}
+
+/* Ховаємо стандартне поле файлу, залишаючи його доступним */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.field-hint {
+    margin-top: 8px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+/* Поля форми */
+.form-field {
+    margin-bottom: 18px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.form-field input,
+.form-field textarea {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: white;
+    color: var(--color-text);
+    font: inherit;
+    font-size: 15px;
+}
+
+.form-field input {
+    height: 52px;
+}
+
+.form-field textarea {
+    min-height: 96px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: var(--color-purple);
+    outline: 2px solid rgba(116, 48, 245, 0.15);
+}
+
+.form-field textarea + .field-hint {
+    text-align: right;
+}
+
+#page-address {
+    border-color: var(--color-purple);
+}
+
+/* Кнопки під формою */
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 44px;
+}
+
+.form-actions .button {
+    min-height: 52px;
+}
+
+.form-actions .button-secondary {
+    flex: 0 0 98px;
+    border: 1px solid var(--color-border);
+    background: white;
+    color: var(--color-text);
+    font-size: 14px;
+}
+
+.form-actions .button-secondary:hover {
+    border-color: var(--color-purple);
+    background: var(--color-purple-light);
+}
+
+.form-actions button {
+    position: relative;
+    flex: 1;
+}
+
+.form-actions button::after {
+    content: "→";
+    position: absolute;
+    right: 22px;
+    font-size: 21px;
+    font-weight: 400;
+}
+
+.step-caption {
+    margin-top: 24px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+/* Попередній перегляд: використовує картку зі спільного style.css */
+.create-layout .profile-preview {
+    width: 100%;
+    max-width: 488px;
+    padding: 24px 0 22px;
+    border-radius: 28px;
+}
+
+.create-layout .profile-card {
+    margin-top: 24px;
+}
+
+.preview-label {
+    padding: 0 34px;
+    color: var(--color-purple);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.preview-caption {
+    margin-top: 18px;
+    color: var(--color-muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Перша сторінка створення профілю без підвалу */
+body:has(.create-layout) .footer {
+    display: none;
+}
+
+/* Планшет */
+@media (max-width: 900px) {
+    .create-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+
+    .profile-form {
+        max-width: 576px;
+    }
+
+    .create-layout .profile-preview {
+        justify-self: center;
+    }
+}
+
+/* Телефон */
+@media (max-width: 600px) {
+    .steps-indicator {
+        justify-content: space-between;
+        gap: 6px;
+        margin-top: 28px;
+    }
+
+    .steps-indicator-item {
+        gap: 5px;
+        font-size: 12px;
+    }
+
+    .steps-indicator-line {
+        width: 16px;
+        flex-shrink: 0;
+    }
+
+    .create-profile {
+        margin-top: 40px;
+    }
+
+    .create-profile h1 {
+        font-size: 28px;
+    }
+
+    .create-profile > p {
+        font-size: 14px;
+    }
+
+    .create-layout {
+        display: block;
+        margin-top: 36px;
+    }
+
+    .photo-field {
+        gap: 20px;
+        margin: 0 0 36px;
+    }
+
+    .photo-field .profile-avatar {
+        width: 76px;
+        height: 76px;
+    }
+
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+    .form-actions {
+        margin-top: 44px;
+    }
+
+    /* У мобільному макеті картка перегляду не показується */
+    .create-layout .profile-preview {
+        display: none;
+    }
+}
+
+@media (max-width: 350px) {
+    .steps-indicator-item {
+        font-size: 11px;
+    }
+
+    .steps-indicator-line {
+        width: 10px;
+    }
+
+    .upload-button {
+        padding-inline: 12px;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}MeLink{% endblock %}</title>
+
+    <link
+        rel="icon"
+        type="image/svg+xml"
+        href="{% static 'melink/images/01-icon.svg' %}"
+    >
+    <link rel="stylesheet" href="{% static 'melink/style.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <a class="brand" href="{% url 'home' %}" aria-label="MeLink — на головну">
+            <img
+                class="brand-logo"
+                src="{% static 'melink/images/melink-logo.svg' %}"
+                alt="MeLink"
+            >
+        </a>
+
+        <nav class="header-actions" aria-label="Навігація">
+            {% block header_actions %}{% endblock %}
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <a class="brand" href="{% url 'home' %}" aria-label="MeLink — на головну">
+            <img
+                class="logo-for-end"
+                src="{% static 'melink/images/melink-logo.svg' %}"
+                alt=""
+            >
+            <span>MeLink</span>
+        </a>
+
+        <p>© MeLink · Усе твоє — в одному лінку</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

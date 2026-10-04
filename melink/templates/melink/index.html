@@ -7,6 +7,7 @@
 
     <title>{% block title %}MeLink{% endblock %}</title>
 
+    <link rel="icon" type="image/png" href="{% static '/melink/images/01-icon.svg' %}">
     <link rel="stylesheet" href="{% static 'melink/style.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +26,7 @@
         <nav aria-label="Головна навігація">
             <a href="#about">Як це працює</a>
             <a href="#example">Приклад</a>
-            <a class="button" href="#create">Створити профіль</a>
+            <a class="button" href="/create">Створити профіль</a>
         </nav>
     </header>
 

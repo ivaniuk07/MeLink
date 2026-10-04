@@ -1,0 +1,116 @@
+{% extends "melink/base.html" %}
+{% load static %}
+
+{% block title %}Створити профіль — MeLink{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'melink/create.css' %}">
+{% endblock %}
+
+{% block header_actions %}
+    <a href="#save_exit">Зберегти й вийти</a>
+{% endblock %}
+
+{% block content %}
+    <div class="steps-indicator" aria-label="Створення профілю, крок 1 із 3">
+        <div class="steps-indicator-item active" aria-current="step">
+            <span class="steps-indicator-number">1</span>
+            <span>Про тебе</span>
+        </div>
+        <span class="steps-indicator-line" aria-hidden="true"></span>
+
+        <div class="steps-indicator-item">
+            <span class="steps-indicator-number">2</span>
+            <span>Посилання</span>
+        </div>
+
+        <span class="steps-indicator-line" aria-hidden="true"></span>
+
+        <div class="steps-indicator-item">
+            <span class="steps-indicator-number">3</span>
+            <span>Вигляд</span>
+        </div>
+    </div>
+
+    <section class="create-profile">
+        <h1>Почнімо з тебе.</h1>
+        <p>Фото й кілька слів для знайомства.</p>
+    </section>
+
+    <div class="create-layout">
+        <form class="profile-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="photo-field">
+                <div class="profile-avatar">МС</div>
+
+                <div>
+                    <label class="upload-button" for="photo">Завантажити фото</label>
+                    <input
+                        class="visually-hidden"
+                        id="photo"
+                        name="photo_path"
+                        type="file"
+                        accept="image/png, image/jpeg"
+                    >
+                    <p class="field-hint">JPG або PNG · до 5 МБ</p>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="display-name">Як тебе звати?</label>
+                <input
+                    id="display-name"
+                    name="name"
+                    type="text"
+                    placeholder="Марія Савчук"
+                    maxlength="50"
+                >
+            </div>
+
+            <div class="form-field">
+                <label for="short-bio">Короткий підпис</label>
+                <input
+                    id="short-bio"
+                    name="short_bio"
+                    type="text"
+                    placeholder="Дизайнерка · Київ"
+                    maxlength="50"
+                >
+            </div>
+
+            <div class="form-field">
+                <label for="description">Кілька слів про себе</label>
+                <textarea
+                    id="description"
+                    name="about_me"
+                    maxlength="160"
+                    rows="3"
+                    placeholder="Створюю красиві речі. Тут мої роботи й трохи життя."
+                ></textarea>
+                <p class="field-hint">До 160 символів</p>
+            </div>
+
+            <div class="form-field">
+                <label for="page-address">Адреса твоєї сторінки</label>
+                <input
+                    id="page-address"
+                    name="address"
+                    type="text"
+                    placeholder="maria"
+                    maxlength="20"
+                >
+                <p class="field-hint">Наприклад: melink / maria</p>
+            </div>
+
+            <div class="form-actions">
+                <a class="button button-secondary" href="{% url 'home' %}">Назад</a>
+                <button class="button" type="submit">Продовжити</button>
+            </div>
+
+            <p class="step-caption">Крок 1 із 3</p>
+        </form>
+
+        {% include "melink/profile_preview.html" %}
+    </div>
+{% endblock %}
