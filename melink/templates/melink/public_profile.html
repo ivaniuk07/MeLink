@@ -1,0 +1,12 @@
+{% extends "melink/base.html" %}
+{% load static %}
+
+{% block title %}{{ profile.name }} — MeLink{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'melink/public_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include "melink/profile_preview.html" %}
+{% endblock %}

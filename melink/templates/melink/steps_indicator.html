@@ -1,0 +1,23 @@
+<div class="steps-indicator" aria-label="Створення профілю, крок {{ step }} із 3">
+    <div class="steps-indicator-item {% if step == 1 %}active{% elif step > 1 %}completed{% endif %}"
+         {% if step == 1 %}aria-current="step"{% endif %}>
+        <span class="steps-indicator-number">{% if step > 1 %}✓{% else %}1{% endif %}</span>
+        <span>Про тебе</span>
+    </div>
+
+    <span class="steps-indicator-line" aria-hidden="true"></span>
+
+    <div class="steps-indicator-item {% if step == 2 %}active{% elif step > 2 %}completed{% endif %}"
+         {% if step == 2 %}aria-current="step"{% endif %}>
+        <span class="steps-indicator-number">{% if step > 2 %}✓{% else %}2{% endif %}</span>
+        <span>Посилання</span>
+    </div>
+
+    <span class="steps-indicator-line" aria-hidden="true"></span>
+
+    <div class="steps-indicator-item {% if step == 3 %}active{% endif %}"
+         {% if step == 3 %}aria-current="step"{% endif %}>
+        <span class="steps-indicator-number">3</span>
+        <span>Вигляд</span>
+    </div>
+</div>

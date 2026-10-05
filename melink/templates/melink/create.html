@@ -12,25 +12,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="steps-indicator" aria-label="Створення профілю, крок 1 із 3">
-        <div class="steps-indicator-item active" aria-current="step">
-            <span class="steps-indicator-number">1</span>
-            <span>Про тебе</span>
-        </div>
-        <span class="steps-indicator-line" aria-hidden="true"></span>
+    {% include "melink/steps_indicator.html" with step=1 %}
 
-        <div class="steps-indicator-item">
-            <span class="steps-indicator-number">2</span>
-            <span>Посилання</span>
-        </div>
-
-        <span class="steps-indicator-line" aria-hidden="true"></span>
-
-        <div class="steps-indicator-item">
-            <span class="steps-indicator-number">3</span>
-            <span>Вигляд</span>
-        </div>
-    </div>
 
     <section class="create-profile">
         <h1>Почнімо з тебе.</h1>
@@ -54,6 +37,9 @@
                         accept="image/png, image/jpeg"
                     >
                     <p class="field-hint">JPG або PNG · до 5 МБ</p>
+                     {% for error in form.photo_path.errors %}
+                        <p class="field-error">{{ error }}</p>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -66,6 +52,9 @@
                     placeholder="Марія Савчук"
                     maxlength="50"
                 >
+                 {% for error in form.name.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
             </div>
 
             <div class="form-field">
@@ -77,6 +66,9 @@
                     placeholder="Дизайнерка · Київ"
                     maxlength="50"
                 >
+                 {% for error in form.short_bio.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
             </div>
 
             <div class="form-field">
@@ -89,18 +81,24 @@
                     placeholder="Створюю красиві речі. Тут мої роботи й трохи життя."
                 ></textarea>
                 <p class="field-hint">До 160 символів</p>
+                 {% for error in form.about_me.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
             </div>
 
             <div class="form-field">
                 <label for="page-address">Адреса твоєї сторінки</label>
                 <input
-                    id="page-address"
+                    id=""
                     name="address"
                     type="text"
                     placeholder="maria"
                     maxlength="20"
                 >
                 <p class="field-hint">Наприклад: melink / maria</p>
+                 {% for error in form.address.errors %}
+                    <p class="field-error">{{ error }}</p>
+                {% endfor %}
             </div>
 
             <div class="form-actions">
@@ -113,4 +111,47 @@
 
         {% include "melink/profile_preview.html" %}
     </div>
+    <script>
+        const nameInput = document.querySelector("#display-name");
+        const previewName = document.querySelector(".profile-preview h2");
+
+        nameInput.addEventListener("input", () => {
+            previewName.textContent = nameInput.value || "Марія Савчук";
+        });
+
+        const shortbioInput = document.querySelector("#short-bio");
+        const previewShortbio = document.querySelector(".profile-preview .profile-job");
+
+        shortbioInput.addEventListener("input", () => {
+            previewShortbio.textContent = shortbioInput.value || "Дизайнерка · Київ";
+        })
+
+        const aboutmeInput = document.querySelector("#description");
+        const previewAboutme = document.querySelector(".profile-preview .profile-description");
+
+        aboutmeInput.addEventListener("input", () => {
+            previewAboutme.textContent = aboutmeInput.value || "Створюю красиві речі.Тут мої роботи й трохи життя.";
+        })
+        
+        const photoInput = document.querySelector("#photo");
+        const avatars = document.querySelectorAll(
+            ".photo-field .profile-avatar, .profile-preview .profile-avatar"
+        );
+
+        photoInput.addEventListener("change", () => {
+            const file = photoInput.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                avatars.forEach((avatar) => {
+                    avatar.style.backgroundImage = `url("${reader.result}")`;
+                    avatar.textContent = "";
+                });
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
 {% endblock %}

@@ -1,48 +1,3 @@
-/* Індикатор трьох кроків */
-.steps-indicator {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-top: 24px;
-}
-
-.steps-indicator-item {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    color: var(--color-muted);
-    font-size: 14px;
-    white-space: nowrap;
-}
-
-.steps-indicator-item.active {
-    color: var(--color-text);
-    font-weight: 700;
-}
-
-.steps-indicator-number {
-    display: grid;
-    place-items: center;
-    width: 22px;
-    height: 22px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--color-border);
-    color: var(--color-muted);
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.steps-indicator-item.active .steps-indicator-number {
-    background: var(--color-purple);
-    color: white;
-}
-
-.steps-indicator-line {
-    width: 28px;
-    height: 1px;
-    background: var(--color-border);
-}
 
 /* Заголовок сторінки */
 .create-profile {
@@ -349,4 +304,16 @@ body:has(.create-layout) .footer {
         padding-inline: 12px;
         font-size: 12px;
     }
+}
+
+.field-error{
+    color: red;
+    font-weight: 700;
+}
+
+.photo-field .profile-avatar,
+.profile-preview .profile-avatar {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }

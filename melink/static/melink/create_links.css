@@ -1,0 +1,196 @@
+.links-list {
+    display: grid;
+    gap: 18px;
+}
+
+.link-card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    background: white;
+}
+
+.link-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.link-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.link-card-header input[type="text"] {
+    width: 100%;
+    min-width: 0;
+    padding: 6px 0;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    font-weight: 700;
+}
+
+.icon-button {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.icon-button img,
+.add-link-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-button:hover {
+    background: var(--color-purple-light);
+}
+
+.link-url-input {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 11px;
+    background: var(--color-page);
+    color: var(--color-text);
+    font: inherit;
+    font-size: 14px;
+}
+
+.link-url-input::placeholder {
+    color: var(--color-muted);
+}
+
+.link-visibility {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 13px;
+    color: var(--color-muted);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.link-visibility input {
+    appearance: none;
+    position: relative;
+    flex-shrink: 0;
+    width: 30px;
+    height: 18px;
+    margin: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    background: #aaa5ba;
+    cursor: pointer;
+}
+
+.link-visibility input::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+}
+
+.link-visibility input:checked {
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+}
+
+.link-visibility input:checked::before {
+    left: 14px;
+}
+
+.links-form input:focus-visible,
+.links-form button:focus-visible {
+    outline: 2px solid var(--color-purple);
+    outline-offset: 3px;
+}
+
+.add-link-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    margin-top: 24px;
+    padding: 13px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--color-purple-light);
+    color: var(--color-purple);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.add-link-button:hover {
+    background: #e8dbff;
+}
+
+.links-form > .field-hint {
+    margin-top: 16px;
+}
+
+.links-form .form-actions {
+    margin-top: 40px;
+}
+
+/* У прев’ю вже є іконки з JavaScript. Ховаємо старі CSS-іконки. */
+.links-editor .social-links a::before {
+    display: none;
+}
+
+.links-editor .social-links a img {
+    width: 4cqw;
+    height: 4cqw;
+    flex-shrink: 0;
+}
+
+.links-editor .social-links a b {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-weight: inherit;
+}
+
+@media (max-width: 600px) {
+    .link-card {
+        padding: 12px;
+    }
+
+    .link-card-header {
+        gap: 8px;
+    }
+
+    .link-url-input,
+    .link-card-header input[type="text"] {
+        font-size: 16px;
+    }
+
+    .icon-button {
+        width: 44px;
+        height: 44px;
+    }
+
+    .link-visibility {
+        min-height: 44px;
+        margin-top: 5px;
+    }
+}

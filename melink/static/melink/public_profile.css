@@ -1,0 +1,17 @@
+.public-profile {
+    margin: 48px auto;
+}
+
+.public-profile .profile-card .profile-name {
+    margin-top: 1.2cqw;
+    font-size: 4.84cqw;
+    line-height: 1.2;
+}
+
+.public-profile .profile-card img.profile-avatar {
+    object-fit: cover;
+}
+
+.public-profile .social-links a::before {
+    display: none;
+}
