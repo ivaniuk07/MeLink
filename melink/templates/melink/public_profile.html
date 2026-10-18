@@ -1,12 +1,10 @@
 {% extends "melink/base.html" %}
 {% load static %}
-
 {% block title %}{{ profile.name }} — MeLink{% endblock %}
-
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'melink/public_profile.css' %}">
-{% endblock %}
-
+{% block extra_css %}<link rel="stylesheet" href="{% static 'melink/public_profile.css' %}">{% endblock %}
+{% block header_actions %}{% if is_owner %}<a class="button" href="{% url 'create' %}">Редагувати</a>{% endif %}{% endblock %}
 {% block content %}
-    {% include "melink/profile_preview.html" %}
+{% include "melink/profile_preview.html" %}
+<div class="share-panel"><label for="public-url">Посилання на профіль</label><input id="public-url" type="url" value="{{ public_url }}" readonly><button class="button" type="button" id="copy-link">Копіювати посилання</button><p id="copy-status" role="status"></p></div>
 {% endblock %}
+{% block extra_js %}<script src="{% static 'melink/profile.js' %}" defer></script>{% endblock %}

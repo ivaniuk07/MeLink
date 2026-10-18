@@ -1,6 +1,4 @@
-/* MeLink — повний CSS для поточного index.html.
-   Замініть ним старий style.css, не додавайте після старих правил.
-   Кольори й Arial взяті з макетів у папці design. */
+
 
 :root {
     --color-text: #111a3d;
@@ -14,7 +12,7 @@
     --page-width: 1216px;
 }
 
-/* 1. Загальні налаштування */
+
 *,
 *::before,
 *::after {
@@ -64,7 +62,7 @@ section,
     scroll-margin-top: 24px;
 }
 
-/* Однакові лівий і правий краї для всіх блоків сторінки. */
+
 .header,
 main,
 .footer {
@@ -73,7 +71,7 @@ main,
     margin-inline: auto;
 }
 
-/* 2. Шапка */
+
 .header {
     min-height: 98px;
     padding-block: 24px;
@@ -107,7 +105,7 @@ main,
     color: var(--color-purple);
 }
 
-/* 3. Кнопки */
+
 .button {
     display: inline-flex;
     align-items: center;
@@ -137,7 +135,7 @@ main,
     white-space: nowrap;
 }
 
-/* Декоративна стрілка без додаткових тегів у HTML. */
+
 .hero .button::after,
 .cta .button::after {
     content: "";
@@ -151,7 +149,7 @@ main,
     display: none;
 }
 
-/* 4. Головний блок */
+
 .hero {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 496px);
@@ -199,8 +197,7 @@ main,
     font-size: 14px;
 }
 
-/* 5. Приклад профілю.
-   1cqw = 1% ширини .profile-preview: деталі зменшуються разом із карткою. */
+
 .profile-preview {
     position: relative;
     isolation: isolate;
@@ -372,7 +369,7 @@ main,
     background: center / contain no-repeat url("images/icon-link.svg");
 }
 
-/* 6. Три кроки */
+
 .steps {
     margin-top: 76px;
 }
@@ -443,7 +440,7 @@ main,
     line-height: 1.6;
 }
 
-/* 7. Нижній заклик */
+
 .cta {
     display: flex;
     align-items: center;
@@ -481,7 +478,7 @@ main,
     flex-shrink: 0;
 }
 
-/* 8. Підвал */
+
 .footer {
     display: flex;
     align-items: center;
@@ -498,7 +495,7 @@ main,
     height: auto;
 }
 
-/* У SVG вже є напис MeLink: приховуємо його повтор у твоєму HTML. */
+
 .footer .brand > span {
     display: none;
 }
@@ -508,7 +505,7 @@ main,
     font-size: 12px;
 }
 
-/* Індикатор трьох кроків */
+
 .steps-indicator {
     display: flex;
     align-items: center;
@@ -555,7 +552,7 @@ main,
 }
 
 
-/* 9. Проміжна ширина: планшети й невеликі вікна */
+
 @media (max-width: 1100px) {
     .hero {
         grid-template-columns: minmax(0, 1fr) minmax(0, 42%);
@@ -600,7 +597,7 @@ main,
 
     .profile-preview {
         justify-self: center;
-        /* Тут відсотки padding рахувалися б від ширини всієї колонки. */
+
         padding-block: 53px 38px;
     }
 
@@ -617,7 +614,7 @@ main,
     }
 }
 
-/* 10. Телефон — як у макеті 02-home-mobile.png */
+
 @media (max-width: 600px) {
     .header {
         min-height: 88px;
@@ -803,7 +800,7 @@ main,
     }
 }
 
-/* Поважаємо налаштування користувача щодо анімацій. */
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -814,3 +811,37 @@ main,
     }
 }
 
+
+.profile-name, .profile-job, .profile-description, .social-links a { overflow-wrap: anywhere; }
+.profile-description { white-space: pre-line; }
+.profile-avatar { object-fit: cover; }
+.profile-preview[data-theme] .social-links a::before { display: none; }
+.profile-preview[data-theme="dark"] { background: #242134; }
+.profile-preview[data-theme="dark"]::before, .profile-preview[data-theme="dark"]::after { border-color: #3d3556; }
+.profile-preview[data-theme="dark"] .profile-card { background: #181622; border-color: #484157; color: #faf8ff; }
+.profile-preview[data-theme="dark"] .profile-card::before { opacity: .2; }
+.profile-preview[data-theme="dark"] .profile-job, .profile-preview[data-theme="dark"] .profile-description, .profile-preview[data-theme="dark"] .empty-links { color: #d0c9df; }
+.profile-preview[data-theme="dark"] .social-links a { background: #322b45; color: #faf8ff; border-color: #504563; }
+.profile-preview[data-theme="dark"] .social-links a span { color: #e4d6ff; }
+.profile-preview[data-theme="dark"] .preview-label, .profile-preview[data-theme="dark"] .preview-caption { color: #e4d6ff; }
+.profile-preview[data-theme="light"] { background: #e8edf2; }
+.profile-preview[data-theme="light"]::before, .profile-preview[data-theme="light"]::after { border-color: #d4dce5; }
+.profile-preview[data-theme="light"] .profile-card { background: white; }
+.profile-preview[data-theme="light"] .profile-card::before { display: none; }
+.profile-preview[data-theme="light"] .social-links a { background: #f3f5f8; border-color: #d4dce5; }
+.empty-links { font-size: 14px; color: var(--color-muted); margin-top: 16px; }
+.theme-options { border: 0; padding: 0; margin: 0; }
+.theme-options legend { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+.theme-options label { display: flex; gap: 12px; align-items: center; padding: 18px; border: 1px solid var(--color-border); border-radius: 14px; margin-bottom: 12px; cursor: pointer; }
+.theme-options label:has(input:checked) { border-color: var(--color-purple); background: var(--color-purple-light); }
+.theme-options input { accent-color: var(--color-purple); width: 18px; height: 18px; }
+.field-error, .errorlist { color: #ad2338; font-size: 14px; margin: 8px 0; list-style: none; padding: 0; }
+.form-field input[type="file"] { height: auto; padding: 14px; }
+.form-field input[type="checkbox"] { width: auto; }
+.add-link-button:disabled { opacity: .5; cursor: not-allowed; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid #7430f5; outline-offset: 3px; }
+@media (max-width: 600px) {
+    .header .header-actions { display: flex; gap: 12px; font-size: 12px; }
+    .header .header-actions > a:not(.button) { display: inline-flex; }
+    body:has(.theme-options) .create-layout .profile-preview { display: block; margin: 24px auto 0; }
+}

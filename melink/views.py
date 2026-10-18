@@ -1,104 +1,175 @@
 import re
-
-from django.db import transaction
+from django.db import IntegrityError, transaction
+from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_http_methods
+from rest_framework import generics, permissions
+from .forms import LinkForm, ProfileForm, ThemeForm
+from .models import Link, Profile
+from .serializers import ProfileCreateSerializer, ProfileSerializer
 
-from .forms import LinkForm, ProfileForm
-from .models import Profile
+
+def owned_profile(request):
+    return Profile.objects.filter(pk=request.session.get("profile_id")).first()
 
 
 def index(request):
-    return render(request, "melink/index.html")
+    return render(
+        request, "melink/index.html", {"owned_profile": owned_profile(request)}
+    )
 
 
+@require_http_methods(["GET", "POST"])
 def create(request):
-    if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            profile = form.save()
-            request.session["profile_id"] = profile.id
+    profile = owned_profile(request)
+    form = ProfileForm(
+        request.POST if request.method == "POST" else None,
+        request.FILES if request.method == "POST" else None,
+        instance=profile,
+    )
+    if request.method == "POST" and form.is_valid():
+        try:
+            with transaction.atomic():
+                profile = form.save()
+        except IntegrityError:
+            form.add_error("address", "Ця адреса вже зайнята. Обери іншу.")
+        else:
+            request.session["profile_id"] = profile.pk
             return redirect("create_links")
-    else:
-        form = ProfileForm()
+    return render(
+        request,
+        "melink/create.html",
+        {
+            "form": form,
+            "profile": profile,
+            "preview": True,
+            "links": profile.links.filter(is_visible=True) if profile else [],
+        },
+    )
 
-    return render(request, "melink/create.html", {"form": form})
 
-
+@require_http_methods(["GET", "POST"])
 def create_links(request):
-    profile_id = request.session.get("profile_id")
-
-    if profile_id is None:
+    profile = owned_profile(request)
+    if profile is None:
         return redirect("create")
-
-    profile = get_object_or_404(Profile, id=profile_id)
-
+    errors = []
     if request.method == "POST":
-        numbers = []
+        numbers = sorted(
+            {
+                int(match.group(1))
+                for key in request.POST
+                if (match := re.fullmatch(r"link_(\d+)_(?:title|url)", key))
+            }
+        )
+        cards = [
+            {
+                "number": n,
+                "title": request.POST.get(f"link_{n}_title", "").strip(),
+                "url": request.POST.get(f"link_{n}_url", "").strip(),
+                "is_visible": f"link_{n}_visible" in request.POST,
+            }
+            for n in numbers
+        ]
+        forms = []
+        if len(cards) > 20:
+            errors.append("Можна додати не більше 20 посилань.")
+        else:
+            for card in cards:
+                if not card["title"] and not card["url"]:
+                    continue
+                form = LinkForm(card)
+                if form.is_valid():
+                    forms.append(form)
+                else:
+                    for field_errors in form.errors.values():
+                        errors.extend(
+                            f"Посилання №{card['number']}: {error}"
+                            for error in field_errors
+                        )
+        if not errors:
+            with transaction.atomic():
+                profile.links.all().delete()
+                for order, form in enumerate(forms, start=1):
+                    link = form.save(commit=False)
+                    link.profile = profile
+                    link.sort_order = order
+                    link.save()
+            return redirect("appearance")
+    else:
+        cards = [
+            {
+                "number": i,
+                "title": link.title,
+                "url": link.url,
+                "is_visible": link.is_visible,
+            }
+            for i, link in enumerate(profile.links.all(), start=1)
+        ]
+    if not cards:
+        cards = [{"number": 1, "title": "", "url": "", "is_visible": True}]
+    return render(
+        request,
+        "melink/create_links.html",
+        {
+            "profile": profile,
+            "preview": True,
+            "links": profile.links.filter(is_visible=True),
+            "cards": cards,
+            "form_errors": errors,
+        },
+    )
 
-        # Знаходимо номери карток: link_1_title, link_3_title тощо.
-        for key in request.POST:
-            match = re.fullmatch(r"link_(\d+)_title", key)
 
-            if match:
-                numbers.append(int(match.group(1)))
-
-        numbers = sorted(set(numbers))
-
-        valid_forms = []
-        form_errors = []
-
-        # Створюємо окрему LinkForm для кожної картки.
-        for number in numbers:
-            title = request.POST.get(f"link_{number}_title", "").strip()
-            url = request.POST.get(f"link_{number}_url", "").strip()
-
-            # Порожню картку не зберігаємо. Це стосується і
-            # початкових прикладів, якщо для них не ввели URL.
-            if not url:
-                continue
-
-            form = LinkForm({
-                "title": title,
-                "url": url,
-            })
-
-            if form.is_valid():
-                valid_forms.append(form)
-            else:
-                form_errors.append(
-                    f"Посилання №{number}: {form.errors.as_text()}"
-                )
-
-        if form_errors:
-            return render(
-                request,
-                "melink/create_links.html",
-                {"form_errors": form_errors},
-            )
-
-        # Замінюємо попередній список тільки після перевірки всіх карток.
-        with transaction.atomic():
-            profile.links.all().delete()
-
-            for sort_order, form in enumerate(valid_forms, start=1):
-                link = form.save(commit=False)
-                link.profile = profile
-                link.sort_order = sort_order
-                link.save()
-
+@require_http_methods(["GET", "POST"])
+def appearance(request):
+    profile = owned_profile(request)
+    if profile is None:
+        return redirect("create")
+    form = ThemeForm(
+        request.POST if request.method == "POST" else None, instance=profile
+    )
+    if request.method == "POST" and form.is_valid():
+        form.save()
         return redirect("public_profile", address=profile.address)
+    return render(
+        request,
+        "melink/appearance.html",
+        {
+            "profile": profile,
+            "preview": True,
+            "links": profile.links.filter(is_visible=True),
+            "form": form,
+        },
+    )
 
-    return render(request, "melink/create_links.html")
 
 def public_profile(request, address):
     profile = get_object_or_404(Profile, address=address)
-    links = profile.links.order_by("sort_order")
     return render(
         request,
         "melink/public_profile.html",
         {
             "profile": profile,
-            "links": links
+            "links": profile.links.filter(is_visible=True),
+            "is_owner": request.session.get("profile_id") == profile.pk,
+            "public_url": request.build_absolute_uri(),
         },
     )
+
+class PublicProfileAPIView(generics.RetrieveAPIView):
+    permission_classes = [permissions.AllowAny]
+    lookup_field = "address"
+    queryset = Profile.objects.prefetch_related(
+        Prefetch(
+            "links",
+            queryset=Link.objects.filter(is_visible=True),
+            to_attr="visible_links",
+        )
+    )
+    serializer_class = ProfileSerializer
+
+
+class ProfileCreateAPIView(generics.CreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = ProfileCreateSerializer

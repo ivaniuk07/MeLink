@@ -1,0 +1,20 @@
+{% extends "melink/base.html" %}
+{% load static %}
+{% block title %}Оформлення — MeLink{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'melink/create.css' %}">{% endblock %}
+{% block header_actions %}<a href="{% url 'home' %}">На головну</a>{% endblock %}
+{% block content %}
+{% include "melink/steps_indicator.html" with step=3 %}
+<section class="create-profile"><h1>Твій профіль. Твій стиль.</h1><p>Обери оформлення — і твоя сторінка готова.</p></section>
+<div class="create-layout">
+<form class="profile-form" method="post">
+{% csrf_token %}
+<fieldset class="theme-options"><legend>Обери оформлення</legend>{{ form.theme }}{{ form.theme.errors }}</fieldset>
+<p class="field-hint">Оформлення можна змінити пізніше в цьому браузері.</p>
+<div class="form-actions"><a class="button button-secondary" href="{% url 'create_links' %}">Назад</a><button class="button" type="submit">Відкрити профіль</button></div>
+<p class="step-caption">Крок 3 із 3</p>
+</form>
+{% include "melink/profile_preview.html" %}
+</div>
+{% endblock %}
+{% block extra_js %}<script src="{% static 'melink/profile.js' %}" defer></script>{% endblock %}

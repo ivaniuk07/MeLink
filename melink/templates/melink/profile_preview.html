@@ -1,63 +1,16 @@
-<aside class="profile-preview{% if profile %} public-profile{% endif %}">
-    {% if not profile %}
-        <p class="preview-label">Так виглядатиме твоя сторінка</p>
-    {% endif %}
-
-    <div class="profile-card">
-        {% if profile %}
-            {% if profile.photo_path %}
-                <img
-                    class="profile-avatar"
-                    src="{{ profile.photo_path.url }}"
-                    alt="Фото {{ profile.name }}"
-                >
-            {% else %}
-                <div class="profile-avatar">
-                    {{ profile.name|slice:":2"|upper }}
-                </div>
-            {% endif %}
-
-            <h1 class="profile-name">{{ profile.name }}</h1>
-            <p class="profile-job">{{ profile.short_bio }}</p>
-
-            <p class="profile-description">
-                {{ profile.about_me|linebreaksbr }}
-            </p>
-
-            <div class="social-links">
-                {% for link in links %}
-                    <a
-                        href="{{ link.url }}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {{ link.title }}
-                        <span aria-hidden="true">↗</span>
-                    </a>
-                {% empty %}
-                    <p>Посилань поки немає.</p>
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="profile-avatar">МС</div>
-
-            <h2>Марія Савчук</h2>
-            <p class="profile-job">Дизайнерка · Київ</p>
-
-            <p class="profile-description">
-                Створюю красиві речі.<br>
-                Тут мої роботи й трохи життя.
-            </p>
-
-            <div class="social-links">
-                <a href="#">Мій Instagram <span>↗</span></a>
-                <a href="#">Написати в Telegram <span>↗</span></a>
-                <a href="#">Моє портфоліо <span>↗</span></a>
-            </div>
-        {% endif %}
-    </div>
-
-    {% if not profile %}
-        <p class="preview-caption">Попередній перегляд</p>
-    {% endif %}
+<aside class="profile-preview{% if not preview %} public-profile{% endif %}" data-theme="{{ profile.theme|default:'purple' }}">
+{% if preview %}<p class="preview-label">Так виглядатиме твоя сторінка</p>{% endif %}
+<div class="profile-card">
+{% if profile.photo_path %}
+<img class="profile-avatar" src="{{ profile.photo_path.url }}" alt="Фото {{ profile.name }}">
+{% else %}<div class="profile-avatar">{{ profile.name|default:'Твоє ім’я'|slice:':2'|upper }}</div>{% endif %}
+{% if preview %}<h2 class="profile-name">{{ profile.name|default:'Твоє ім’я' }}</h2>{% else %}<h1 class="profile-name">{{ profile.name }}</h1>{% endif %}
+<p class="profile-job">{{ profile.short_bio }}</p>
+<p class="profile-description">{{ profile.about_me|linebreaksbr }}</p>
+<div class="social-links">
+{% for link in links %}<a href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.title }}<span aria-hidden="true">↗</span></a>
+{% empty %}<p class="empty-links">Посилань поки немає.</p>{% endfor %}
+</div>
+</div>
+{% if preview %}<p class="preview-caption">Попередній перегляд</p>{% endif %}
 </aside>

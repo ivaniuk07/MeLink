@@ -27,3 +27,6 @@ Thumbs.db
 .ruff_cache/
 .coverage
 htmlcov/
+
+.local-secret
+profile_photos/

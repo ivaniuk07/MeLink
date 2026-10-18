@@ -1,44 +1,20 @@
+{% extends "melink/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}MeLink — усе твоє в одному посиланні{% endblock %}
+{% block header_actions %}
+<a href="#about">Як це працює</a>
+<a href="#example">Приклад</a>
+{% if owned_profile %}<a href="{% url 'public_profile' owned_profile.address %}">Мій профіль</a>{% endif %}
+{% endblock %}
+{% block content %}
 
-    <title>{% block title %}MeLink{% endblock %}</title>
-
-    <link rel="icon" type="image/png" href="{% static '/melink/images/01-icon.svg' %}">
-    <link rel="stylesheet" href="{% static 'melink/style.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header class="header">
-        <a class="brand" href="/" aria-label="MeLink — на головну">
-            <img
-                class="brand-logo"
-                src="{% static 'melink/images/melink-logo.svg' %}"
-                alt="MeLink"
-            >
-        </a>
-
-        <nav aria-label="Головна навігація">
-            <a href="#about">Як це працює</a>
-            <a href="#example">Приклад</a>
-            <a class="button" href="/create">Створити профіль</a>
-        </nav>
-    </header>
-
-    <main>
-        {% block content %}
 
         <section class="hero">
             <div class="hero-text">
                 <p class="eyebrow">Твій маленький сайт</p>
                 <h1>Твої посилання.<br>Твоя історія.</h1>
                 <p>Розкажи про себе й поділися посиланнями на соцмережі.</p>
-                <a class="button" href="#create">Створити профіль</a>
+                <a class="button" href="{% url 'create' %}">Створити профіль</a>
                 <p>Твій профіль. Твій стиль. Одне посилання.</p>
             </div>
 
@@ -61,7 +37,7 @@
                         <a href="https://telegram.org/">
                             Telegram <span aria-hidden="true">↗</span>
                         </a>
-                        <a href="#">
+                        <a href="https://www.behance.net/">
                             Моє портфоліо <span aria-hidden="true">↗</span>
                         </a>
                     </div>
@@ -141,23 +117,8 @@
                 <p>Почни зі своєї сторінки MeLink.</p>
             </div>
 
-            <a class="button" href="#create">Створити профіль</a>
+            <a class="button" href="{% url 'create' %}">Створити профіль</a>
         </section>
 
-        {% endblock %}
-    </main>
 
-    <footer class="footer">
-        <a class="brand" href="/" aria-label="MeLink — на головну">
-            <img
-                class="logo-for-end"
-                src="{% static 'melink/images/melink-logo.svg' %}"
-                alt=""
-            >
-            <span>MeLink</span>
-        </a>
-
-        <p>© MeLink · Усе твоє — в одному лінку</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

@@ -153,7 +153,7 @@
     margin-top: 40px;
 }
 
-/* У прев’ю вже є іконки з JavaScript. Ховаємо старі CSS-іконки. */
+
 .links-editor .social-links a::before {
     display: none;
 }

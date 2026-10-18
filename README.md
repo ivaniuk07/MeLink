@@ -1,143 +1,93 @@
 # MeLink
 
-**MeLink — твоя персональна сторінка, де можна розповісти про себе й зібрати всі свої соціальні мережі та важливі посилання в одному місці.**
+MeLink is a Django application for creating a personal page with social media, portfolio and project links. The interface is in Ukrainian.
 
-Навчальний вебпроєкт на Django. Наразі реалізований фронтенд головної сторінки: адаптивна верстка, приклад профілю, блок із трьома кроками та заклики до створення власної сторінки.
+## Features
 
-## Що вже зроблено
+- Three-step editor: profile details, links and appearance.
+- Unique profile address, photo upload (PNG/JPEG, up to 5 MB) and live preview.
+- Add or delete up to 20 links; hide individual links without deleting them.
+- HTTP/HTTPS URL validation and atomic link updates.
+- Purple, dark and light themes.
+- Public profile page and a button to copy its URL.
+- Edit the existing profile from the same browser session.
+- Responsive layout and accessible form labels.
 
-- Створено візуальний стиль MeLink: логотипи, SVG-іконки та фіолетова палітра.
-- Підготовлено макети головної сторінки, профілю, реєстрації та редактора для комп’ютера й телефона.
-- Налаштовано Django-проєкт `config` і застосунок `melink`.
-- Зверстано головну сторінку з шапкою, навігацією та підвалом.
-- Додано демонстраційну картку профілю із соціальними посиланнями.
-- Оформлено блок «Почни з трьох простих кроків».
-- Додано адаптивні стилі для різних розмірів екрана.
+## Stack
 
-## Поточний стан
+Python 3.10+, Django 5.2.17, Django REST framework 3.18.3, SQLite, Pillow, Django Templates, CSS and vanilla JavaScript. Python 3.12 is recommended for local setup.
 
-Головна сторінка відкривається через Django. Профіль Марії Савчук і соціальні посилання на ній — демонстраційні дані. Кнопки «Створити профіль» поки ведуть до блока на головній сторінці; створення, редагування та збереження профілів ще не реалізовані.
+## Run locally
 
-Макети інших сторінок у папці `design/` показують запланований вигляд продукту, але не означають, що відповідні функції вже працюють.
-
-## Дизайн
-
-### Головна сторінка — комп’ютер
-
-![Макет головної сторінки MeLink для комп’ютера](design/01-home-desktop.png)
-
-<details>
-<summary>Головна сторінка — телефон</summary>
-
-<img src="design/02-home-mobile.png" alt="Макет головної сторінки MeLink для телефона" width="390">
-
-</details>
-
-Це зображення дизайн-макетів; поточна верстка може трохи відрізнятися текстами та переносами рядків.
-
-- [Усі макети](design/)
-- [Інструкція до макетів та імпорту SVG у Figma](design/README.txt)
-- [Логотипи](image/logo/)
-
-## Технології
-
-- **Python 3.10+** та **Django 5.2** — основа проєкту й відображення сторінок.
-- **Django Templates** — HTML-шаблони та підключення статичних файлів.
-- **HTML5 і CSS3** — розмітка, Flexbox, Grid та адаптивність.
-- **SVG** — логотипи й іконки.
-- **SQLite** — база даних у стандартних налаштуваннях Django; дані профілів поки не зберігаються.
-
-## Запуск локально
-
-Потрібні Git і Python 3.10 або новіший. Поточне середовище розробки — Python 3.13.
-
-### 1. Завантажити проєкт
-
-```bash
-git clone https://github.com/ivaniuk07/MeLink.git
-cd MeLink
-```
-
-### 2. Створити віртуальне середовище
-
-```bash
+```sh
 python3 -m venv venv
-```
-
-Активувати на macOS / Linux:
-
-```bash
 source venv/bin/activate
-```
-
-На Windows у PowerShell для створення й активації середовища:
-
-```powershell
-py -m venv venv
-.\venv\Scripts\Activate.ps1
-```
-
-### 3. Встановити залежності
-
-```bash
 python -m pip install -r requirements.txt
-```
-
-### 4. Підготувати базу й запустити сервер
-
-```bash
 python manage.py migrate
 python manage.py runserver
 ```
 
-Відкрити [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+Open http://127.0.0.1:8000/ and choose **Створити**. Keep the terminal running. Stop the server with Ctrl+C.
 
-## Структура проєкту
+On Windows, activate the environment with `venv\Scripts\activate`.
 
-```text
-MeLink/
-├── config/                       # Налаштування й головні маршрути Django
-├── melink/                       # Застосунок MeLink
-│   ├── templates/melink/
-│   │   └── index.html            # HTML головної сторінки
-│   ├── static/melink/
-│   │   ├── style.css             # Стилі та адаптація для телефона
-│   │   └── images/               # Логотипи й іконки для сторінки
-│   ├── urls.py                   # Маршрути застосунку
-│   ├── views.py                  # Відображення сторінок
-│   └── models.py                 # Майбутні моделі даних
-├── design/                       # Макети SVG і PNG
-├── image/logo/                   # Варіанти логотипів
-├── manage.py                     # Команди Django
-├── requirements.txt             # Залежності Python
-├── .gitignore
-└── README.md
+A local secret key is generated once in `.local-secret`, which is ignored by Git. SQLite data and uploaded files are also excluded from Git.
+
+## Demo walkthrough
+
+1. Open the homepage and follow either of its two create buttons.
+2. Enter a name, short bio, description and unique address; optionally upload a photo.
+3. Add a GitHub URL and another link. Toggle one link off to demonstrate visibility.
+4. Choose a theme and open the public page.
+5. Copy its URL. Open it in a private browser window to see the visitor view.
+6. In the original browser, select **Редагувати** to update the existing profile.
+
+The copied localhost URL works only on the computer running the app. Sharing with other people requires hosting.
+
+## Data model
+
+`Profile` stores name, bio, description, unique address, photo path and theme.
+
+`Link` belongs to a profile through a foreign key with cascade deletion. It stores title, URL, sort order and visibility. Links are ordered by `sort_order`, then ID.
+
+## Routes
+
+| URL | Purpose |
+| --- | --- |
+| `/` | Homepage |
+| `/create/` | Create or update the session's profile |
+| `/create_links/` | Edit the profile's links |
+| `/appearance/` | Choose a theme |
+| `/profile/<address>/` | Public profile |
+| `/api/profiles/<address>/` | Read-only JSON representation of a public profile and its visible links |
+| `POST /api/profiles/` | Create a profile and optionally its links |
+| `/admin/` | Django administration |
+
+Example API requests: `GET /api/profiles/oleksii/` returns a profile and only its visible links; `POST /api/profiles/` creates a profile and optional links from JSON.
+
+## Validation and tests
+
+```sh
+python manage.py check
+python manage.py test
 ```
 
-## Де змінювати сторінку
+The tests cover the complete creation flow, session ownership, duplicate addresses, invalid links, atomic updates, hidden links, ordering, link limits, themes, photo validation, HTML escaping, static assets, the profile API response and the two homepage create links.
 
-- Текст і HTML: [`melink/templates/melink/index.html`](melink/templates/melink/index.html).
-- Кольори, відступи та адаптивність: [`melink/static/melink/style.css`](melink/static/melink/style.css).
-- Зображення: [`melink/static/melink/images/`](melink/static/melink/images/).
+## Session ownership and scope
 
-CSS містить коментарі до основних секцій. Медіазапити змінюють розташування елементів для телефона та планшета.
+This is an interview/demo project with session-based editing, not a complete account system. A browser session owns one profile. Visitors cannot edit a profile just by knowing its URL. Clearing cookies or losing the session removes access to the editor; cross-device login and account recovery are not implemented. A profile becomes publicly accessible after the first step is saved, even before the remaining steps are completed.
 
-## Налаштування розробки
+The next development steps would be account authentication, profile ownership linked to users, draft/publish states, upload cleanup and deployment configuration. The local development server is not intended for production.
 
-Проєкт налаштований для локального запуску з `DEBUG = True`. Ключ Django можна передати через змінну середовища `DJANGO_SECRET_KEY`. Якщо її не задано, генерується тимчасовий ключ для розробки; після перезапуску сервера він змінюється.
+## Configuration
 
-Віртуальне середовище, локальна база SQLite, файли `.env` та кеш Python не входять до репозиторію. Поточні налаштування не призначені для публічного розгортання.
+Optional environment variables:
 
-## Подальші кроки
+- `DJANGO_SECRET_KEY`: explicit secret key; required when debug is disabled.
+- `DJANGO_DEBUG`: defaults to `True` for local development.
+- `DJANGO_ALLOWED_HOSTS`: comma-separated hosts; defaults to localhost and loopback addresses.
+- `DJANGO_DB_PATH`: SQLite file path; defaults to `db.sqlite3`.
+- `DJANGO_MEDIA_ROOT`: upload directory; defaults to `media/`.
 
-- [ ] Реєстрація та вхід користувачів.
-- [ ] Створення й редагування профілю.
-- [ ] Завантаження аватара та додавання опису.
-- [ ] Додавання, редагування та видалення соціальних посилань.
-- [ ] Збереження даних у базі.
-- [ ] Публічна сторінка з унікальною адресою.
-- [ ] Вибір оформлення профілю.
-
-## Автор
-
-[ivaniuk07](https://github.com/ivaniuk07)
+Uploaded images are served by Django only in debug mode. A production deployment must configure static/media serving, HTTPS and secure cookies separately.

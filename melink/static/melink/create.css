@@ -1,5 +1,5 @@
 
-/* Заголовок сторінки */
+
 .create-profile {
     margin-top: 60px;
 }
@@ -15,7 +15,7 @@
     font-size: 16px;
 }
 
-/* Форма ліворуч, попередній перегляд праворуч */
+
 .create-layout {
     display: grid;
     grid-template-columns: minmax(0, 576px) minmax(0, 488px);
@@ -29,7 +29,7 @@
     min-width: 0;
 }
 
-/* Фото та кнопка завантаження */
+
 .photo-field {
     display: flex;
     align-items: center;
@@ -72,7 +72,7 @@
     outline-offset: 3px;
 }
 
-/* Ховаємо стандартне поле файлу, залишаючи його доступним */
+
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -90,7 +90,7 @@
     font-size: 12px;
 }
 
-/* Поля форми */
+
 .form-field {
     margin-bottom: 18px;
 }
@@ -140,7 +140,7 @@
     border-color: var(--color-purple);
 }
 
-/* Кнопки під формою */
+
 .form-actions {
     display: flex;
     gap: 12px;
@@ -183,7 +183,7 @@
     font-size: 12px;
 }
 
-/* Попередній перегляд: використовує картку зі спільного style.css */
+
 .create-layout .profile-preview {
     width: 100%;
     max-width: 488px;
@@ -211,12 +211,12 @@
     text-align: center;
 }
 
-/* Перша сторінка створення профілю без підвалу */
+
 body:has(.create-layout) .footer {
     display: none;
 }
 
-/* Планшет */
+
 @media (max-width: 900px) {
     .create-layout {
         grid-template-columns: minmax(0, 1fr);
@@ -232,7 +232,7 @@ body:has(.create-layout) .footer {
     }
 }
 
-/* Телефон */
+
 @media (max-width: 600px) {
     .steps-indicator {
         justify-content: space-between;
@@ -285,7 +285,7 @@ body:has(.create-layout) .footer {
         margin-top: 44px;
     }
 
-    /* У мобільному макеті картка перегляду не показується */
+
     .create-layout .profile-preview {
         display: none;
     }
@@ -317,3 +317,5 @@ body:has(.create-layout) .footer {
     background-position: center;
     background-repeat: no-repeat;
 }
+.form-field input[type="file"] { height: auto; padding: 14px; }
+.form-field input[type="checkbox"] { display: inline-block; width: auto; height: auto; }
